@@ -1,56 +1,27 @@
 import React, { Component } from "react";
-import Mercedes from "../layouts/images/mercedesbenz.png";
-import Bmw from "../layouts/images/bmw.png";
-import Ford from "../layouts/images/ford.png";
-import Skoda from "../layouts/images/skoda.png";
-import Volkswagen from "../layouts/images/volkswagen.png";
-import Renault from "../layouts/images/renault.png";
-import Volvo from "../layouts/images/volvo.png";
 
 import "../layouts/Home styles/style.css";
+import { data } from "./cars";
 
-export default class Home extends Component {
+export default class Home extends React.Component {
 	render() {
 		return (
 			<main>
-				<h1>Car Marks</h1>
+				<h1>All Cars</h1>
 
-				<section>
-					<div className="card">
-						<img src={Mercedes} alt="Mercedes Benz" />
-						<h2>Mercedes Benz</h2>
-					</div>
+				{data.map(function (item) {
+					return (
+						<div>
+							<h2>{item.carname}</h2>
 
-					<div className="card">
-						<img src={Renault} alt="Renault" />
-						<h2>Renault</h2>
-					</div>
+							<span>Model: {item.model}</span>
 
-					<div className="card">
-						<img src={Bmw} alt="BMW" />
-						<h2>BMW</h2>
-					</div>
+							<span>Mileage: {item.mileage}</span>
 
-					<div className="card">
-						<img src={Volkswagen} alt="Volkswagen" />
-						<h2>Volkswagen</h2>
-					</div>
-
-					<div className="card">
-						<img src={Volvo} alt="Volvo" />
-						<h2>Volvo</h2>
-					</div>
-
-					<div className="card">
-						<img src={Ford} alt="Ford" />
-						<h2>Ford</h2>
-					</div>
-
-					<div className="card">
-						<img src={Skoda} alt="Skoda" />
-						<h2>Skoda</h2>
-					</div>
-				</section>
+							<span>Year: {item.year}</span>
+						</div>
+					);
+				})}
 			</main>
 		);
 	}

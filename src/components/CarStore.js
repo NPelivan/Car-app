@@ -1,7 +1,7 @@
-import { observable, action, computed } from "mobx";
+import { observable, computed, makeObservable } from "mobx";
 
 class CarStore {
-	@observable isStored = false;
+	//isStored = false;
 
 	cars = [
 		{
@@ -116,14 +116,42 @@ class CarStore {
 			year: "2017",
 		},
 	];
-
-	@computed get sortedCars() {
+	/*
+	get sortedCars() {
 		return this.filteredCars
 			.filter((car) => car !== null)
 			.slice()
 			.sort((a, b) => (a.VehicleMake > b.VehicleMake ? 1 : -1));
 	}
+	*/
+	indexOfLastCar = this.currentPage * this.carsPerPage;
+	indexOfFirstCar = this.indexOfLastCar - this.carsPerPage;
+
+	get currentCars() {
+		return this.filteredCars.slice(this.indexOfFirstCar, this.indexOfLastCar);
+	}
+
+	filter = "";
+	get filterCar() {
+		let matchesFilter = new RegExp(this.filter, "i");
+		return this.cars
+			.filter((car) => car !== null)
+			.filter((car) => !this.filter || matchesFilter.test(car.VehicleMake));
+	}
+
+	constructor(cars) {
+		makeObservable(this, {
+			cars: observable,
+			indexOfLastCar: observable,
+			indexOfFirstCar: observable,
+			currentCars: computed,
+			filter: observable,
+			filterCar: computed,
+		});
+		this.cars = cars;
+	}
 }
 
 const store = new CarStore();
+
 export default store;

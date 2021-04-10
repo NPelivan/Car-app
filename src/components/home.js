@@ -1,33 +1,37 @@
-import React, { Component } from "react";
+import React from "react";
 
 import { inject, observer } from "mobx-react";
 
-@inject("CarStore")
-@observer
-export default class Home extends React.Component {
-	sort = (e) => {
-		this.props.CarStore.isSorted = true;
+class Home extends React.Component {
+	filter = (e) => {
+		e.preventDefault();
+		this.props.CarStore.filter = e.target.value;
 	};
 	render() {
 		const { filter } = this.props.CarStore;
 		return (
 			<main>
 				<h1>All Cars</h1>
+				<form onSubmit={(e = this.filter(e))}>
+					<input type="text" value={filter} onChange={this.filter.bind(this)} />
+				</form>
 
-				{this.props.CarStore.filter((car) => car !== null).map((car) => (
-					<div>
-						<h2>{car.carname}</h2>
+				{this.props.CarStore.currentCars
+					.filter((car) => car !== null)
+					.map((car) => (
+						<div key={car.id}>
+							<h2>{car.carname}</h2>
 
-						<button onClick={this.sortx}>Sort A-Z</button>
+							<span>Model: {car.model}</span>
 
-						<span>Model: {car.model}</span>
+							<span>Mileage: {car.mileage}</span>
 
-						<span>Mileage: {car.mileage}</span>
-
-						<span>Year: {car.year}</span>
-					</div>
-				))}
+							<span>Year: {car.year}</span>
+						</div>
+					))}
 			</main>
 		);
 	}
 }
+
+export default inject("CarStore")(observer(Home));

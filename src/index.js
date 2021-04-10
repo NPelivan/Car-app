@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import CarStore from "./components/cars";
+import CarStore from "./components/CarStore";
 import { Provider } from "mobx-react";
 
 ReactDOM.render(

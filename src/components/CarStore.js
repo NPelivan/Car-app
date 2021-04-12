@@ -124,6 +124,9 @@ class CarStore {
 			.sort((a, b) => (a.VehicleMake > b.VehicleMake ? 1 : -1));
 	}
 	*/
+	currentPage = 1;
+	carsPerPage = 5;
+
 	indexOfLastCar = this.currentPage * this.carsPerPage;
 	indexOfFirstCar = this.indexOfLastCar - this.carsPerPage;
 
@@ -132,21 +135,23 @@ class CarStore {
 	}
 
 	filter = "";
-	get filterCar() {
+	get filteredCars() {
 		let matchesFilter = new RegExp(this.filter, "i");
 		return this.cars
 			.filter((car) => car !== null)
-			.filter((car) => !this.filter || matchesFilter.test(car.VehicleMake));
+			.filter((car) => !this.filter || matchesFilter.test(car.carname));
 	}
 
 	constructor(cars) {
 		makeObservable(this, {
 			cars: observable,
+			currentPage: observable,
+			carsPerPage: observable,
 			indexOfLastCar: observable,
 			indexOfFirstCar: observable,
 			currentCars: computed,
 			filter: observable,
-			filterCar: computed,
+			filteredCars: computed,
 		});
 		this.cars = cars;
 	}

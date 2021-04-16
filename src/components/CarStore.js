@@ -1,8 +1,6 @@
-import { observable, computed, makeObservable } from "mobx";
+import { observable, computed, makeObservable, action } from "mobx";
 
 class CarStore {
-	//isStored = false;
-
 	cars = [
 		{
 			id: 1,
@@ -116,14 +114,10 @@ class CarStore {
 			year: "2017",
 		},
 	];
-	/*
-	get sortedCars() {
-		return this.filteredCars
-			.filter((car) => car !== null)
-			.slice()
-			.sort((a, b) => (a.VehicleMake > b.VehicleMake ? 1 : -1));
-	}
-	*/
+
+	isSorted = false;
+	filter = "";
+
 	currentPage = 1;
 	carsPerPage = 5;
 
@@ -134,7 +128,6 @@ class CarStore {
 		return this.filteredCars.slice(this.indexOfFirstCar, this.indexOfLastCar);
 	}
 
-	filter = "";
 	get filteredCars() {
 		let matchesFilter = new RegExp(this.filter, "i");
 		return this.cars
@@ -142,8 +135,26 @@ class CarStore {
 			.filter((car) => !this.filter || matchesFilter.test(car.carname));
 	}
 
+	get currentSortedCars() {
+		return this.sortedCars.slice(this.indexOfFirstCar, this.indexOfLastCar);
+	}
+
+	get sortedCars() {
+		return this.filteredCars
+			.filter((car) => car !== null)
+			.slice()
+			.sort((a, b) => (a.carname > b.carname ? 1 : -1));
+	}
+
+	setPage = (pageNumber) => {
+		this.currentPage = pageNumber;
+		this.indexOfLastCar = this.currentPage * this.carsPerPage;
+		this.indexOfFirstCar = this.indexOfLastCar - this.carsPerPage;
+	};
+
 	constructor(cars) {
 		makeObservable(this, {
+			isSorted: observable,
 			cars: observable,
 			currentPage: observable,
 			carsPerPage: observable,
@@ -152,6 +163,9 @@ class CarStore {
 			currentCars: computed,
 			filter: observable,
 			filteredCars: computed,
+			currentSortedCars: computed,
+			sortedCars: computed,
+			setPage: action,
 		});
 		this.cars = cars;
 	}

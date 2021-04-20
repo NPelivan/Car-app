@@ -1,8 +1,12 @@
-import React from "react";
+import React, { Component } from "react";
 
 import { inject, observer } from "mobx-react";
 
-class Home extends React.Component {
+import Pagination from "./pagination";
+
+import "../layouts/style.css";
+
+class Cars extends Component {
 	filter = (e) => {
 		e.preventDefault();
 		this.props.CarStore.filter = e.target.value;
@@ -15,18 +19,20 @@ class Home extends React.Component {
 	paginate = (pageNumber) => {
 		this.props.CarStore.setPage(pageNumber);
 	};
+
 	render() {
 		const { filter } = this.props.CarStore;
 		const filterAndSort = () => {
 			return (
 				<>
-					<div>
-						<button>Sort A-Z</button>
+					<div className="filter-sort">
+						<button onClick={this.sort}>Sort A-Z</button>
 						<form onSubmit={(e) => this.filter(e)}>
 							<input
 								type="text"
-								value="filter"
+								value={filter}
 								onChange={this.filter.bind(this)}
+								placeholder="Search"
 							/>
 						</form>
 					</div>
@@ -37,13 +43,13 @@ class Home extends React.Component {
 		const openDefaultView = () => {
 			return (
 				<>
-					<h1>All Cars</h1>
 					{filterAndSort()}
-					<div>
+					<div className="cars">
 						{this.props.CarStore.currentCars
 							.filter((car) => car !== null)
 							.map((car) => (
 								<div key={car.id}>
+									<img src={car.image} alt="car" />
 									<h2>{car.carname}</h2>
 
 									<span>Model: {car.model}</span>
@@ -54,6 +60,11 @@ class Home extends React.Component {
 								</div>
 							))}
 					</div>
+					<Pagination
+						carsPerPage={this.props.CarStore.carsPerPage}
+						totalCars={this.props.CarStore.filteredCars.length}
+						paginate={this.paginate}
+					/>
 				</>
 			);
 		};
@@ -63,9 +74,11 @@ class Home extends React.Component {
 				<>
 					{filterAndSort()}
 
-					<div>
+					<div className="cars">
 						{this.props.CarStore.currentSortedCars.map((car) => (
 							<div key={car.id}>
+								<img src={car.image} alt="car" />
+
 								<h2>{car.carname}</h2>
 
 								<span>Model: {car.model}</span>
@@ -76,6 +89,12 @@ class Home extends React.Component {
 							</div>
 						))}
 					</div>
+
+					<Pagination
+						carsPerPage={this.props.CarStore.carsPerPage}
+						totalCars={this.props.CarStore.sortedCars.length}
+						paginate={this.paginate}
+					/>
 				</>
 			);
 		};
@@ -84,4 +103,4 @@ class Home extends React.Component {
 	}
 }
 
-export default inject("CarStore")(observer(Home));
+export default inject("CarStore")(observer(Cars));

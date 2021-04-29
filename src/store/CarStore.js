@@ -1,9 +1,10 @@
 import { observable, computed, makeObservable, action } from "mobx";
+import React from "react";
 
 class CarStore {
 	cars = [
 		{
-			id: 1,
+			id: 0,
 			carname: "Mercedes Benz",
 			model: "E 250D",
 			mileage: "340 000km",
@@ -12,7 +13,7 @@ class CarStore {
 		},
 
 		{
-			id: 2,
+			id: 1,
 			carname: "Audi",
 			model: "A 5",
 			mileage: "150 000km",
@@ -21,7 +22,7 @@ class CarStore {
 		},
 
 		{
-			id: 3,
+			id: 2,
 			carname: "Renault",
 			model: "Twingo",
 			mileage: "215 000km",
@@ -30,7 +31,7 @@ class CarStore {
 		},
 
 		{
-			id: 4,
+			id: 3,
 			carname: "BMW",
 			model: "E34",
 			mileage: "78 000km",
@@ -39,7 +40,7 @@ class CarStore {
 		},
 
 		{
-			id: 5,
+			id: 4,
 			carname: "Volvo",
 			model: "123 GT (Amazon)",
 			mileage: "120 000km",
@@ -48,7 +49,7 @@ class CarStore {
 		},
 
 		{
-			id: 6,
+			id: 5,
 			carname: "Volkswagen",
 			model: "Type 2",
 			mileage: "35 000km",
@@ -57,7 +58,7 @@ class CarStore {
 		},
 
 		{
-			id: 7,
+			id: 6,
 			carname: "Subaru",
 			model: "Crosstrek",
 			mileage: "250 000km",
@@ -66,7 +67,7 @@ class CarStore {
 		},
 
 		{
-			id: 8,
+			id: 7,
 			carname: "Mercedes Benz",
 			model: "E500",
 			mileage: "35 000km",
@@ -75,7 +76,7 @@ class CarStore {
 		},
 
 		{
-			id: 9,
+			id: 8,
 			carname: "Ford",
 			model: "Mustang",
 			mileage: "264 000km",
@@ -84,7 +85,7 @@ class CarStore {
 		},
 
 		{
-			id: 10,
+			id: 9,
 			carname: "BMW",
 			model: "X5",
 			mileage: "298 000km",
@@ -93,7 +94,7 @@ class CarStore {
 		},
 
 		{
-			id: 11,
+			id: 10,
 			carname: "Mitsubishi",
 			model: "Lancer EVO X",
 			mileage: "450 000km",
@@ -102,7 +103,7 @@ class CarStore {
 		},
 
 		{
-			id: 12,
+			id: 11,
 			carname: "Tesla",
 			model: "Model 3",
 			mileage: "100 000km",
@@ -111,7 +112,7 @@ class CarStore {
 		},
 
 		{
-			id: 13,
+			id: 12,
 			carname: "Cadillac",
 			model: "Eldorado",
 			mileage: "500 000km",
@@ -120,7 +121,7 @@ class CarStore {
 		},
 
 		{
-			id: 14,
+			id: 13,
 			carname: "Rolls Royce",
 			model: "Phantom VIII",
 			mileage: "25 000km",
@@ -129,7 +130,7 @@ class CarStore {
 		},
 
 		{
-			id: 15,
+			id: 14,
 			carname: "Opel",
 			model: "Manta A",
 			mileage: "390 000km",
@@ -138,7 +139,7 @@ class CarStore {
 		},
 
 		{
-			id: 16,
+			id: 15,
 			carname: "Zastava",
 			model: "1300/1500",
 			mileage: "268 000km",
@@ -147,7 +148,7 @@ class CarStore {
 		},
 
 		{
-			id: 17,
+			id: 16,
 			carname: "Dacia",
 			model: "Duster",
 			mileage: "186 000km",
@@ -164,6 +165,19 @@ class CarStore {
 
 	indexOfLastCar = this.currentPage * this.carsPerPage;
 	indexOfFirstCar = this.indexOfLastCar - this.carsPerPage;
+
+	lastId = this.cars.slice(-1)[0].id;
+
+	newCarname = React.createRef();
+	newModel = React.createRef();
+	newMileage = React.createRef();
+	newYear = React.createRef();
+	newImage = React.createRef();
+	editCarname = React.createRef();
+	editModel = React.createRef();
+	editMileage = React.createRef();
+	editYear = React.createRef();
+	editImage = React.createRef();
 
 	get currentCars() {
 		return this.filteredCars.slice(this.indexOfFirstCar, this.indexOfLastCar);
@@ -193,6 +207,23 @@ class CarStore {
 		this.indexOfFirstCar = this.indexOfLastCar - this.carsPerPage;
 	};
 
+	// remove car
+	removeCar = (id) => {
+		this.cars[id] = null;
+	};
+
+	//adding new car
+	addCar = ({ id, carname, model, mileage, year, image }) => {
+		this.cars.push({
+			id: ++this.lastId,
+			carname: this.newCarname.current.value,
+			model: this.newModel.current.value,
+			mileage: this.newMileage.current.value,
+			year: this.newYear.current.value,
+			image: this.newImage.current.value,
+		});
+	};
+
 	constructor(cars) {
 		makeObservable(this, {
 			isSorted: observable,
@@ -207,6 +238,20 @@ class CarStore {
 			currentSortedCars: computed,
 			sortedCars: computed,
 			setPage: action,
+			removeCar: action,
+			lastId: observable,
+			addCar: action,
+			newCarname: observable,
+			newModel: observable,
+			newMileage: observable,
+			newYear: observable,
+			newMileage: observable,
+			newImage: observable,
+			editCarname: observable,
+			editModel: observable,
+			editMileage: observable,
+			editYear: observable,
+			editImage: observable,
 		});
 	}
 }

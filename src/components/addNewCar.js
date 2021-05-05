@@ -19,21 +19,25 @@ const AddNewCar = ({ CarStore }) => {
 						type="text"
 						placeholder="Add car name"
 						ref={CarStore.newCarname}
+						required
 					/>
 					<input
 						type="text"
 						placeholder="Add car model"
 						ref={CarStore.newModel}
+						required
 					/>
 					<input
 						type="number"
 						placeholder="Add car mileage"
 						ref={CarStore.newMileage}
+						required
 					/>
 					<input
 						type="number"
 						placeholder="Add car year"
 						ref={CarStore.newYear}
+						required
 					/>
 					<input
 						type="text"

@@ -24,7 +24,7 @@ class FilterAndSort extends Component {
 							type="text"
 							value={filter}
 							onChange={this.filter.bind(this)}
-							placeholder="Search"
+							placeholder="Search e.g. BMW"
 						/>
 					</form>
 				</div>

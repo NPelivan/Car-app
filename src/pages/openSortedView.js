@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
-import FilterAndSort from "./filterAndSort";
-import Pagination from "./pagination";
+import FilterAndSort from "../components/filterAndSort";
+import Pagination from "../components/pagination";
 import "../layouts/style.css";
 import TrashIcon from "../assets/trash-icon.svg";
-import AddOption from "./addOption";
+import AddOption from "../components/addOption";
+import AllMakesBtn from "../components/allMakesBtn";
 
 class OpenSortedView extends Component {
 	paginate = (pageNumber) => {
@@ -17,6 +18,7 @@ class OpenSortedView extends Component {
 		return (
 			<>
 				<FilterAndSort />
+				<AllMakesBtn />
 				<AddOption />
 				<div className="cars">
 					{this.props.CarStore.currentSortedCars.map((car) => (
@@ -41,8 +43,8 @@ class OpenSortedView extends Component {
 				</div>
 
 				<Pagination
-					carsPerPage={this.props.CarStore.carsPerPage}
-					totalCars={this.props.CarStore.sortedCars.length}
+					itemsPerPage={this.props.CarStore.itemsPerPage}
+					totalItems={this.props.CarStore.sortedCars.length}
 					paginate={this.paginate}
 				/>
 			</>

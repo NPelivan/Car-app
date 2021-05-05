@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "../layouts/style.css";
 
-const Pagination = ({ carsPerPage, totalCars, paginate }) => {
+const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
 	const pageNumbers = [];
 	const [clickedId, setClicked] = useState("");
 
-	for (let i = 1; i <= Math.ceil(totalCars / carsPerPage); i++) {
+	for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
 		pageNumbers.push(i);
 	}
 

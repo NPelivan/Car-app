@@ -1,25 +1,17 @@
 import React, { Component } from "react";
 
 import { inject, observer } from "mobx-react";
-import FilterAndSort from "../components/filterAndSort";
-import OpenDefaultView from "../components/openDefaultView";
-import OpenSortedView from "../components/openSortedView";
+
+import OpenDefaultView from "./openDefaultView";
+import OpenSortedView from "./openSortedView";
 
 class Home extends Component {
 	render() {
-		const filterAndSort = () => {
-			return <FilterAndSort />;
-		};
-
-		const openDefaultView = () => {
-			return <OpenDefaultView />;
-		};
-
-		const openSortedView = () => {
-			return <OpenSortedView />;
-		};
-
-		return this.props.CarStore.isSorted ? openSortedView() : openDefaultView();
+		return this.props.CarStore.isSorted ? (
+			<OpenSortedView />
+		) : (
+			<OpenDefaultView />
+		);
 	}
 }
 

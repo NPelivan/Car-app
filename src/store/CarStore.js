@@ -157,14 +157,77 @@ class CarStore {
 		},
 	];
 
+	carMakes = [
+		{
+			id: 0,
+			make: "Mercedes Benz",
+		},
+		{
+			id: 0,
+			make: "Audi",
+		},
+		{
+			id: 0,
+			make: "Renault",
+		},
+		{
+			id: 0,
+			make: "BMW",
+		},
+		{
+			id: 0,
+			make: "Volvo",
+		},
+		{
+			id: 0,
+			make: "Volkswagen",
+		},
+		{
+			id: 0,
+			make: "Subaru",
+		},
+		{
+			id: 0,
+			make: "Ford",
+		},
+		{
+			id: 0,
+			make: "Mitsubishi",
+		},
+		{
+			id: 0,
+			make: "Tesla",
+		},
+		{
+			id: 0,
+			make: "Cadillac",
+		},
+		{
+			id: 0,
+			make: "Rolls Royce",
+		},
+		{
+			id: 0,
+			make: "Opel",
+		},
+		{
+			id: 0,
+			make: "Zastava",
+		},
+		{
+			id: 0,
+			make: "Dacia",
+		},
+	];
+
 	isSorted = false;
 	filter = "";
 
 	currentPage = 1;
-	carsPerPage = 6;
+	itemsPerPage = 6;
 
-	indexOfLastCar = this.currentPage * this.carsPerPage;
-	indexOfFirstCar = this.indexOfLastCar - this.carsPerPage;
+	indexOfLastCar = this.currentPage * this.itemsPerPage;
+	indexOfFirstCar = this.indexOfLastCar - this.itemsPerPage;
 
 	lastId = this.cars.slice(-1)[0].id;
 
@@ -173,11 +236,12 @@ class CarStore {
 	newMileage = React.createRef();
 	newYear = React.createRef();
 	newImage = React.createRef();
-	editCarname = React.createRef();
+
+	/*editCarname = React.createRef();
 	editModel = React.createRef();
 	editMileage = React.createRef();
 	editYear = React.createRef();
-	editImage = React.createRef();
+	editImage = React.createRef();*/
 
 	get currentCars() {
 		return this.filteredCars.slice(this.indexOfFirstCar, this.indexOfLastCar);
@@ -203,8 +267,8 @@ class CarStore {
 
 	setPage = (pageNumber) => {
 		this.currentPage = pageNumber;
-		this.indexOfLastCar = this.currentPage * this.carsPerPage;
-		this.indexOfFirstCar = this.indexOfLastCar - this.carsPerPage;
+		this.indexOfLastCar = this.currentPage * this.itemsPerPage;
+		this.indexOfFirstCar = this.indexOfLastCar - this.itemsPerPage;
 	};
 
 	// remove car
@@ -224,12 +288,23 @@ class CarStore {
 		});
 	};
 
+	//editing existing car
+
+	/*editCar = (id) => {
+		this.cars[id].carname = this.editCarname.current.value;
+		this.cars[id].model = this.editModel.current.value;
+		this.cars[id].mileage = this.editMileage.current.value;
+		this.cars[id].year = this.editYear.current.value;
+		this.cars[id].image = this.editImage.current.value;
+	};*/
+
 	constructor(cars) {
 		makeObservable(this, {
+			carMakes: observable,
 			isSorted: observable,
 			cars: observable,
 			currentPage: observable,
-			carsPerPage: observable,
+			itemsPerPage: observable,
 			indexOfLastCar: observable,
 			indexOfFirstCar: observable,
 			currentCars: computed,
@@ -247,11 +322,11 @@ class CarStore {
 			newYear: observable,
 			newMileage: observable,
 			newImage: observable,
-			editCarname: observable,
+			/*editCarname: observable,
 			editModel: observable,
 			editMileage: observable,
 			editYear: observable,
-			editImage: observable,
+			editImage: observable,*/
 		});
 	}
 }

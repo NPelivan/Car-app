@@ -5,7 +5,7 @@ export default class AddOption extends Component {
 	render() {
 		return (
 			<div className="add">
-				<Link to="makes">
+				<Link to="add">
 					<button>Add New Car</button>
 				</Link>
 			</div>

@@ -11,6 +11,11 @@ class FilterAndSort extends Component {
 
 	sort = (e) => {
 		this.props.CarStore.isSorted = true;
+		if (this.props.CarStore.sortDirection === 1) {
+			this.props.CarStore.sortDirection = -1;
+		} else {
+			this.props.CarStore.sortDirection = 1;
+		}
 	};
 
 	render() {

@@ -12,6 +12,7 @@ class FilterAndSort extends Component {
 	sort = (e) => {
 		this.props.CarStore.isSorted = true;
 	};
+
 	render() {
 		const { filter } = this.props.CarStore;
 
@@ -19,6 +20,7 @@ class FilterAndSort extends Component {
 			<>
 				<div className="filter-sort">
 					<button onClick={this.sort}>Sort A-Z</button>
+
 					<form onSubmit={(e) => this.filter(e)}>
 						<input
 							type="text"

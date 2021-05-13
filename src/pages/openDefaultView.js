@@ -6,6 +6,7 @@ import { inject, observer } from "mobx-react";
 import TrashIcon from "../assets/trash-icon.svg";
 import AddOption from "../components/addOption";
 import AllMakesBtn from "../components/allMakesBtn";
+import { Link } from "react-router-dom";
 
 class OpenDefaultView extends Component {
 	paginate = (pageNumber) => {
@@ -33,7 +34,9 @@ class OpenDefaultView extends Component {
 									<img src={TrashIcon} />
 								</button>
 								<img src={car.image} alt="car" />
-								<h2>{car.carname}</h2>
+								<Link to={`/edit/${car.id}`}>
+									<h2>{car.carname}</h2>
+								</Link>
 
 								<span>Model: {car.model}</span>
 

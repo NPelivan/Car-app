@@ -237,11 +237,11 @@ class CarStore {
 	newYear = React.createRef();
 	newImage = React.createRef();
 
-	/*editCarname = React.createRef();
+	editCarname = React.createRef();
 	editModel = React.createRef();
 	editMileage = React.createRef();
 	editYear = React.createRef();
-	editImage = React.createRef();*/
+	editImage = React.createRef();
 
 	get currentCars() {
 		return this.filteredCars.slice(this.indexOfFirstCar, this.indexOfLastCar);
@@ -258,40 +258,6 @@ class CarStore {
 		//debugger;
 		return this.sortedCars.slice(this.indexOfFirstCar, this.indexOfLastCar);
 	}
-
-	/* 
-	get sortedCars () {
-		return this.filteredCars.filter(car => car !== null).slice().sort((a, b) => (a.VehicleMake > b.VehicleMake) ? 1 : -1);
-		
-	}
-	
-	*/
-	/*
-	reverse = false;
-
-	get sortedCars() {
-		let sortable = this.filteredCars.filter((car) => car !== null).slice();
-		console.log(sortable);
-		if (this.reverse) {
-			sortable = sortable.sort();
-		} else {
-			sortable = sortable.reverse();
-		}
-		this.reverse = !this.reverse;
-		return sortable;
-	}*/
-
-	/*reverse = false;
-	get sortedCars() {
-		let sortable;
-		if (this.reverse) {
-			sortable = this.cars.slice().sort();
-		} else {
-			sortable = this.cars.slice().reverse();
-		}
-		this.reverse = !this.reverse;
-		this.sortedCars.replace(sortable);
-	}*/
 
 	sortDirection = 1;
 
@@ -326,13 +292,13 @@ class CarStore {
 
 	//editing existing car
 
-	/*editCar = (id) => {
+	editCar = (id) => {
 		this.cars[id].carname = this.editCarname.current.value;
 		this.cars[id].model = this.editModel.current.value;
 		this.cars[id].mileage = this.editMileage.current.value;
 		this.cars[id].year = this.editYear.current.value;
 		this.cars[id].image = this.editImage.current.value;
-	};*/
+	};
 
 	constructor(cars) {
 		makeObservable(this, {
@@ -358,12 +324,12 @@ class CarStore {
 			newYear: observable,
 			newMileage: observable,
 			newImage: observable,
-			/*editCarname: observable,
+			editCarname: observable,
 			editModel: observable,
 			editMileage: observable,
 			editYear: observable,
-			editImage: observable,*/
-			//reverse: observable,
+			editImage: observable,
+
 			sortDirection: observable,
 		});
 	}

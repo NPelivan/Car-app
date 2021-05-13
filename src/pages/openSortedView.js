@@ -6,6 +6,7 @@ import "../layouts/style.css";
 import TrashIcon from "../assets/trash-icon.svg";
 import AddOption from "../components/addOption";
 import AllMakesBtn from "../components/allMakesBtn";
+import { Link } from "react-router-dom";
 
 class OpenSortedView extends Component {
 	paginate = (pageNumber) => {
@@ -31,7 +32,9 @@ class OpenSortedView extends Component {
 							</button>
 							<img src={car.image} alt="car" />
 
-							<h2>{car.carname}</h2>
+							<Link to={`/edit/${car.id}`}>
+								<h2>{car.carname}</h2>
+							</Link>
 
 							<span>Model: {car.model}</span>
 
